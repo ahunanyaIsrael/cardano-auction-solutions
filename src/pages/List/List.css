@@ -1,0 +1,22 @@
+.auction-list{
+  
+}
+.auction-list-header {
+  display: grid;
+  place-items: center;
+  margin-top: 80px;
+}
+.auction-list-header div {
+  margin-top: 15px;
+  background: #008000;
+  height: 2px;
+  width: 15%;
+  border-radius: 5px;
+}
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
