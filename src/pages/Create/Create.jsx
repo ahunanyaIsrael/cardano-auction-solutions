@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import upload from "../../assets/images/upload.png";
 import "./Create.css";
 import { useLucid } from "../../context/LucidContext";

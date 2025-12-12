@@ -1,5 +1,4 @@
-// src/components/CloseAuctionModal/CloseAuctionModal.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./CloseAuctionModal.css";
 import { useLucid } from "../../context/LucidContext";
 import { closeAuction, fetchCurrentDatum } from "../../utils/function";
@@ -20,6 +19,7 @@ const CloseAuctionModal = ({ auction, onClose, onSuccess }) => {
 
     return (amount / 1_000_000).toFixed(2);
   };
+
   // Fetch current datum
   useEffect(() => {
     const fetchDatum = async () => {
@@ -79,6 +79,8 @@ const CloseAuctionModal = ({ auction, onClose, onSuccess }) => {
       setTimeout(() => {
         onClose();
       }, 3000);
+
+      
     } catch (err) {
       console.error("Close auction failed:", err);
       setError(err.message || "Failed to close auction. Please try again.");

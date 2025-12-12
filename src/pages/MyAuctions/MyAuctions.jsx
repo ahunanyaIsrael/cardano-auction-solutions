@@ -1,7 +1,6 @@
-// src/pages/MyAuctions/MyAuctions.jsx
+
 import React, { useEffect, useState } from "react";
 import "./MyAuctions.css";
-import AuctionCard from "../../components/AuctionCard/AuctionCard";
 import { getAuctions } from "../../utils/function";
 import { useLucid } from "../../context/LucidContext";
 import CloseAuctionModal from "../../components/CloseAuctionModal/CloseAuctionModal";

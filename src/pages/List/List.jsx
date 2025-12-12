@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./List.css";
-import { dummyAuctions } from "../../assets/data/dummyAuctions";
 import AuctionCard from "../../components/AuctionCard/AuctionCard";
 import { getAuctions } from "../../utils/function";
 
@@ -40,11 +39,6 @@ const List = () => {
   useEffect(() => {
     fetchAuctions();
   }, []);
-  const handlePlaceBid = (auctionId) => {
-    // Implement bid placement logic here
-    console.log("Place bid for auction:", auctionId);
-    alert(`Placing bid for auction #${auctionId}`);
-  };
 
   if (loading) {
     return (
@@ -90,9 +84,9 @@ const List = () => {
                 seller={auction.seller}
                 deadline={auction.deadline}
                 displayDeadline={auction.displayDeadline}
-                onchain_utxo={auction.onchain_utxo} // Pass this
-                highestBidder={auction.highestBidder} // Pass this
-                status={auction.status} // Pass this
+                onchain_utxo={auction.onchain_utxo}
+                highestBidder={auction.highestBidder}
+                status={auction.status}
               />
             </div>
           ))}
