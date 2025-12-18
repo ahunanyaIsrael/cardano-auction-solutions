@@ -1,22 +1,112 @@
-.auction-list{
-  
+/* Modern list page with elegant header and responsive grid */
+.auction-list {
+  min-height: calc(100vh - 80px);
+  padding-bottom: 3rem;
 }
+
 .auction-list-header {
-  display: grid;
-  place-items: center;
-  margin-top: 80px;
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
 }
-.auction-list-header div {
-  margin-top: 15px;
-  background: #008000;
-  height: 2px;
-  width: 15%;
-  border-radius: 5px;
+
+.auction-list-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
 }
+
+.auction-list-header::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.card:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.card:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading and empty states */
+.loading,
+.no-auctions {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.no-auctions {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  margin: 2rem 1.5rem;
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.no-auctions p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auction-list-header h2 {
+    font-size: 2rem;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

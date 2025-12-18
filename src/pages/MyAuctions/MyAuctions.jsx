@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./MyAuctions.css";
 import { getAuctions } from "../../utils/function";
@@ -23,12 +22,12 @@ const MyAuctions = () => {
       setLoading(true);
       setError(null);
       const response = await getAuctions();
-      
+
       // Filter auctions created by the current wallet
       const myAuctions = (response.auctions || []).filter(
-        auction => auction.seller && auction.seller === address
+        (auction) => auction.seller && auction.seller === address
       );
-      
+
       console.log("My auctions:", myAuctions);
       setAuctions(myAuctions);
     } catch (error) {
@@ -107,26 +106,21 @@ const MyAuctions = () => {
             // Check if auction is closed or can be closed
             const deadline = new Date(auction.deadline);
             const now = new Date();
-            const isEnded = now >= deadline;
+            const isEnded = Date.now() > deadline.getTime();
             const canClose = isEnded && auction.status === "open";
 
             return (
               <div className="my-auction-card" key={auction.id}>
-                {/* <AuctionCard
-                  {...auction}
-                  onPlaceBid={() => {}} // Disable bidding on my auctions page
-                /> */}
-                
                 <div className="auction-actions">
                   <div className="auction-status">
-                    <span className={`status ${auction.status}`}>
-                      {auction.status.toUpperCase()}
+                    <span className={`status ${isEnded ? "closed" : "open"}`}>
+                      {isEnded ? "Ended" : "Ongoing"}
                     </span>
                     <span className="deadline">
                       Ends: {auction.displayDeadline}
                     </span>
                   </div>
-                  
+
                   {canClose && (
                     <button
                       className="close-auction-btn"
@@ -135,17 +129,15 @@ const MyAuctions = () => {
                       Close Auction & Collect
                     </button>
                   )}
-                  
+
                   {!canClose && isEnded && auction.status === "closed" && (
                     <div className="already-closed">
                       ✅ Auction closed and funds collected
                     </div>
                   )}
-                  
+
                   {!canClose && !isEnded && (
-                    <div className="waiting">
-                      ⏳ Auction still running
-                    </div>
+                    <div className="waiting">⏳ Auction still running</div>
                   )}
                 </div>
               </div>
