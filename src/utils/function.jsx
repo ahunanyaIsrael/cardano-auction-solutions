@@ -1,7 +1,7 @@
 import { cbor } from "./validator.js";
 import axios from "axios";
 
-const API_URL = "http://localhost/backend";
+const API_URL = import.meta.env.VITE_API_URL;
 const PINATA_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
 
 export const validator = {
@@ -640,14 +640,37 @@ export const updateAuctionBid = async (
   bidderAddress,
   txHash
 ) => {
+  // ensure auctionId is present
+  console.log("🔁 updateAuctionBid called with:", {
+    auctionId,
+    bidAmountADA,
+    bidderAddress,
+    txHash,
+  });
   try {
-    const response = await axios.post(`${API_URL}/update_bid.php`, {
-      auctionId,
-      bidAmount: Math.floor(bidAmountADA * 1_000_000), // Convert to lovelace
+    const payload = {
+      auctionId: Number(auctionId), // force number
+      bidAmount: Math.floor(bidAmountADA * 1_000_000), // lovelace
       bidderAddress,
       txHash,
       newUtxo: `${txHash}#0`,
+    };
+    // const response = await axios.post(`${API_URL}/update_bid.php`, {
+    //   auctionId,
+    //   bidAmount: Math.floor(bidAmountADA * 1_000_000), // Convert to lovelace
+    //   bidderAddress,
+    //   txHash,
+    //   newUtxo: `${txHash}#0`,
+    // });
+    const response = await axios.post(`${API_URL}/update_bid.php`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      timeout: 10000,
     });
+
+    console.log("📥 updateAuctionBid response:", response.data);
 
     if (!response.data.success) {
       throw new Error(response.data.message || "Failed to update bid");
